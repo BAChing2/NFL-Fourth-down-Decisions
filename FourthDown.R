@@ -55,13 +55,5 @@ ggplot(short_yardage, aes(x = reorder(posteam, go_rate), y = go_rate)) +
     x = "Team",
     y = "Go For It Rate"
   )
-ggplot(short_yardage, aes(x = reorder(posteam, go_rate), y = go_rate)) +
-  geom_col() +
-  coord_flip() +
-  labs(
-    title = "...",
-    x = "...",
-    y = "..."
-  )
 
 ggsave("output/fourth_short_aggressiveness_2024.png", width = 10, height = 8, dpi = 300)
