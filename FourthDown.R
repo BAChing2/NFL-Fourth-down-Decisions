@@ -47,6 +47,14 @@ short_yardage <- team_by_distance %>%
   filter(distance == "short") %>%
   arrange(desc(go_rate))
 
+ggplot(team_agression, aes(x = reorder(posteam, go_rate), y = go_rate)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "4th Down Aggressiveness by Team in 2024",
+    x = "Team",
+    y = "Go For It Rate"
+  )
 ggplot(short_yardage, aes(x = reorder(posteam, go_rate), y = go_rate)) +
   geom_col() +
   coord_flip() +
@@ -57,3 +65,4 @@ ggplot(short_yardage, aes(x = reorder(posteam, go_rate), y = go_rate)) +
   )
 
 ggsave("output/fourth_short_aggressiveness_2024.png", width = 10, height = 8, dpi = 300)
+ggsave("output/fourth_down_aggressiveness_2024.png", width = 10, height = 8, dpi = 300)
