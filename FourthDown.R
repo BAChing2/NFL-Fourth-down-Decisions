@@ -19,3 +19,12 @@ team_agression <- filtered_pbp %>%
     go_rate = mean(decision == "went_for_it")
   ) %>%
   arrange(desc(go_rate))
+
+situations <- filtered_pbp %>%
+  mutate(distance = case_when (
+     ydstogo <= 2 ~ "short",
+     ydstogo <= 5 ~ "medium",
+     TRUE ~ "long"
+  )) %>%
+  group_by(distance) %>%
+  summarize(go_rate = mean(decision == "went_for_it"))
