@@ -10,3 +10,12 @@ filtered_pbp <- pbp %>%
     play_type == "punt" ~ "punt",
     play_type == "field_goal" ~ "field_goal",
     TRUE ~ "other"))
+
+team_agression <- filtered_pbp %>%
+  filter(decision != "other") %>%
+  group_by(posteam) %>%
+  summarize(
+    total_4th = n(),
+    go_rate = mean(decision == "went_for_it")
+  ) %>%
+  arrange(desc(go_rate))
