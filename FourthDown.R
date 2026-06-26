@@ -43,18 +43,25 @@ team_by_distance <- filtered_pbp %>%
     .groups = "drop"
   ) 
 
-team_by_short_distance <- filtered_pbp %>%
-  filter(decision != "other") %>%
-  mutate(distance = case_when (
-    ydstogo <= 2 ~ "short",
-    ydstogo <= 5 ~ "medium",
-    TRUE ~ "long"
-  )) %>%
-  group_by(posteam, distance) %>%
-  summarize(
-    go_rate = mean(decision == "went_for_it"),
-    n = n(),
-    .groups = "drop"
-  ) %>%
+short_yardage <- team_by_distance %>%
   filter(distance == "short") %>%
   arrange(desc(go_rate))
+
+ggplot(short_yardage, aes(x = reorder(posteam, go_rate), y = go_rate)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "4th and Short Aggressiveness by Team in 2024",
+    x = "Team",
+    y = "Go For It Rate"
+  )
+ggplot(short_yardage, aes(x = reorder(posteam, go_rate), y = go_rate)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "...",
+    x = "...",
+    y = "..."
+  )
+
+ggsave("output/fourth_short_aggressiveness_2024.png", width = 10, height = 8, dpi = 300)
